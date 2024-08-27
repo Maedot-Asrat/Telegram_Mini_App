@@ -228,10 +228,10 @@ const App: React.FC = () => {
           <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
           <p className="mt-1">Exchange</p>
         </div>
-        <div className="text-center text-[#85827d] w-1/5">
+        <button onClick={handleTaskClick} className="text-center text-[#85827d] w-1/5">
           <Mine className="w-8 h-8 mx-auto" />
           <button className="mt-1" onClick={handleTaskClick}>Task</button>
-        </div>
+        </button>
         <div className="text-center text-[#85827d] w-1/5">
           <Friends className="w-8 h-8 mx-auto" />
           <p className="mt-1">Friends</p>
