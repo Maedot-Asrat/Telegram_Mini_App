@@ -7,6 +7,7 @@ import Settings from './icons/Settings';
 import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
+import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -129,7 +130,11 @@ const App: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
+  const navigate = useNavigate();
 
+  const handleTaskClick = () => {
+    navigate('/task');
+  };
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
@@ -225,7 +230,7 @@ const App: React.FC = () => {
         </div>
         <div className="text-center text-[#85827d] w-1/5">
           <Mine className="w-8 h-8 mx-auto" />
-          <p className="mt-1">Mine</p>
+          <button className="mt-1" onClick={handleTaskClick}>Task</button>
         </div>
         <div className="text-center text-[#85827d] w-1/5">
           <Friends className="w-8 h-8 mx-auto" />
