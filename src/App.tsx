@@ -10,30 +10,23 @@ import Coins from './icons/Coins';
 import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
+  const [username, setUsername] = useState(''); // State to store the username
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username'); // Retrieve the username from local storage
+    if (storedUsername) {
+      setUsername(storedUsername); // Set the username in state
+    }
+  }, []);
+
   const levelNames = [
-    "Bronze",    // From 0 to 4999 coins
-    "Silver",    // From 5000 coins to 24,999 coins
-    "Gold",      // From 25,000 coins to 99,999 coins
-    "Platinum",  // From 100,000 coins to 999,999 coins
-    "Diamond",   // From 1,000,000 coins to 2,000,000 coins
-    "Epic",      // From 2,000,000 coins to 10,000,000 coins
-    "Legendary", // From 10,000,000 coins to 50,000,000 coins
-    "Master",    // From 50,000,000 coins to 100,000,000 coins
-    "GrandMaster", // From 100,000,000 coins to 1,000,000,000 coins
-    "Lord"       // From 1,000,000,000 coins to ∞
+    "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
+    "Epic", "Legendary", "Master", "GrandMaster", "Lord"
   ];
 
   const levelMinPoints = [
-    0,        // Bronze
-    5000,     // Silver
-    25000,    // Gold
-    100000,   // Platinum
-    1000000,  // Diamond
-    2000000,  // Epic
-    10000000, // Legendary
-    50000000, // Master
-    100000000,// GrandMaster
-    1000000000// Lord
+    0, 5000, 25000, 100000, 1000000, 
+    2000000, 10000000, 50000000, 100000000, 1000000000
   ];
 
   const [levelIndex, setLevelIndex] = useState(6);
@@ -73,7 +66,7 @@ const App: React.FC = () => {
     };
 
     updateCountdowns();
-    const interval = setInterval(updateCountdowns, 60000); // Update every minute
+    const interval = setInterval(updateCountdowns, 60000);
 
     return () => clearInterval(interval);
   }, []);
@@ -130,11 +123,13 @@ const App: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
+
   const navigate = useNavigate();
 
   const handleTaskClick = () => {
     navigate('/task');
   };
+
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
@@ -144,7 +139,7 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-              <p className="text-sm">Maddy (CEO)</p>
+              <p className="text-sm">{username || 'User'}</p> {/* Display the username or 'User' if not available */}
             </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
@@ -177,7 +172,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-
         <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
           <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
             <div className="px-4 mt-6 flex justify-between gap-2">
