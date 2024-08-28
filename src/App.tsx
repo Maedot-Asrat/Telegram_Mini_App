@@ -8,7 +8,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import { useNavigate } from 'react-router-dom';
-
+import Avatar from './images/safaricom.png';
 const App: React.FC = () => {
 
 
@@ -22,11 +22,11 @@ const App: React.FC = () => {
     2000000, 10000000, 50000000, 100000000, 1000000000
   ];
 
-  const [levelIndex, setLevelIndex] = useState(6);
+  const [levelIndex, setLevelIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 11;
-  const profitPerHour = 126420;
+  const profitPerHour = 1;
 
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
@@ -165,7 +165,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
+        <div className="flex-grow mt-4 bg-[#34b523] rounded-t-[48px] relative top-glow z-0">
           <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
             <div className="px-4 mt-6 flex justify-between gap-2">
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
@@ -201,7 +201,7 @@ const App: React.FC = () => {
                 onClick={handleCardClick}
               >
                 <div className="w-full h-full rounded-full circle-inner">
-                  <img src={mainCharacter} alt="Main Character" className="w-full h-full" />
+                  <img src={Avatar} alt="Main Character" className="w-1/2 h-1/2" />
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import Avatar from './images/avatar.jpg';
 
 const TaskPage: React.FC = () => {
   return (
-    <div className="task-page bg-black text-white h-screen">
+    <div className="task-page bg-black text-white flex justify-center">
       <div className="header flex justify-between p-4">
         <button className="back-button">
           <img src="/path/to/back-icon.png" alt="Back" />
