@@ -9,8 +9,10 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import { useNavigate } from 'react-router-dom';
 import Avatar from './images/safaricom.png';
+import { usePoints } from './PointsContext';
+import BottomNavBar from './BottomNavBar';
 const App: React.FC = () => {
-
+  const { points, setPoints } = usePoints();
 
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
@@ -23,7 +25,7 @@ const App: React.FC = () => {
   ];
 
   const [levelIndex, setLevelIndex] = useState(0);
-  const [points, setPoints] = useState(0);
+  // const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 11;
   const profitPerHour = 1;
@@ -120,8 +122,9 @@ const App: React.FC = () => {
   const navigate = useNavigate();
 
   const handleTaskClick = () => {
-    navigate('/task');
+    navigate('/task', { state: { points } }); // Pass the current points to the task page
   };
+
 
   return (
     <div className="bg-black flex justify-center">
@@ -191,7 +194,7 @@ const App: React.FC = () => {
             <div className="px-4 mt-4 flex justify-center">
               <div className="px-4 py-2 flex items-center space-x-2">
                 <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
-                <p className="text-4xl text-white">{points.toLocaleString()}</p>
+                <p className="text-4xl text-white">{points}</p>
               </div>
             </div>
 
@@ -210,43 +213,22 @@ const App: React.FC = () => {
       </div>
 
       {/* Bottom fixed div */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] flex justify-around items-center z-50 rounded-3xl text-xs">
-        <div className="text-center text-[#85827d] w-1/5 bg-[#1c1f24] m-1 p-2 rounded-2xl">
-          <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
-          <p className="mt-1">Exchange</p>
-        </div>
-        <button onClick={handleTaskClick} className="text-center text-[#85827d] w-1/5">
-          <Mine className="w-8 h-8 mx-auto" />
-          <button className="mt-1" onClick={handleTaskClick}>Task</button>
-        </button>
-        <div className="text-center text-[#85827d] w-1/5">
-          <Friends className="w-8 h-8 mx-auto" />
-          <p className="mt-1">Friends</p>
-        </div>
-        <div className="text-center text-[#85827d] w-1/5">
-          <Coins className="w-8 h-8 mx-auto" />
-          <p className="mt-1">Earn</p>
-        </div>
-        <div className="text-center text-[#85827d] w-1/5">
-          <img src={hamsterCoin} alt="Airdrop" className="w-8 h-8 mx-auto" />
-          <p className="mt-1">Airdrop</p>
-        </div>
-      </div>
+      <BottomNavBar handleTaskClick={handleTaskClick} />
 
       {clicks.map((click) => (
-        <div
-          key={click.id}
-          className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
-          style={{
-            top: `${click.y - 42}px`,
-            left: `${click.x - 28}px`,
-            animation: `float 1s ease-out`
-          }}
-          onAnimationEnd={() => handleAnimationEnd(click.id)}
-        >
-          {pointsToAdd}
-        </div>
-      ))}
+          <div
+            key={click.id}
+            className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
+            style={{
+              top: `${click.y - 42}px`,
+              left: `${click.x - 28}px`,
+              animation: `float 1s ease-out`
+            }}
+            onAnimationEnd={() => handleAnimationEnd(click.id)}
+          >
+            {pointsToAdd}
+          </div>
+        ))}
     </div>
   );
 };

@@ -1,8 +1,20 @@
 import React from 'react';
 import './TaskPage.css'; // Add custom styles here
 import Avatar from './images/avatar.jpg';
+import { usePoints } from './PointsContext';
+import BottomNavBar from './BottomNavBar';
+import { useLocation } from 'react-router-dom';
+interface TaskPageProps {
+  updatePoints: (points: number) => void;
+}
 
-const TaskPage: React.FC = () => {
+const TaskPage: React.FC<TaskPageProps> = ({ updatePoints }) => {
+  const location = useLocation();
+  const currentPoints = location.state?.points || 0;
+
+  const handleTaskCompletion = (points: number) => {
+    updatePoints(currentPoints + points);
+  };
   return (
     <div className="task-page bg-black text-white flex justify-center">
       <div className="header flex justify-between p-4">
@@ -39,9 +51,17 @@ const TaskPage: React.FC = () => {
       </div>
       <div className="tasks-section mt-6 px-4">
         <div className="task-card">
-        <p><a href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" target="_blank" rel="noopener noreferrer">
-            Download M-pesa
-          </a></p>
+        <p>
+            <a 
+              href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => handleTaskCompletion(10000)} // Add the onClick handler
+            >
+              Download M-pesa
+            </a>
+          </p>
+          <span>P 100.000</span>
           <span>P 100.000</span>
         </div>
         <div className="task-card">
@@ -60,6 +80,7 @@ const TaskPage: React.FC = () => {
         <button className="footer-button">Achievement</button>
         <button className="footer-button">Team</button>
       </div>
+      <BottomNavBar handleTaskClick={() => {}} />
     </div>
   );
 };
