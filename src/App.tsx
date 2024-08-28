@@ -11,7 +11,15 @@ import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
   const [username, setUsername] = useState(''); // State to store the username
-
+  useEffect(() => {
+    // Assuming you have access to the username and first name from the bot
+    const username = "user's username from bot";
+    const firstName = "user's first name from bot";
+  
+    // Store in localStorage
+    localStorage.setItem('username', username);
+    localStorage.setItem('firstName', firstName);
+  }, []);
   useEffect(() => {
     const storedUsername = localStorage.getItem('username'); // Retrieve the username from local storage
     if (storedUsername) {
