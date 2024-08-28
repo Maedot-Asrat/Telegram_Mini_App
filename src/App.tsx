@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin} from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-import Mine from './icons/Mine';
-import Friends from './icons/Friends';
-import Coins from './icons/Coins';
+
 import { useNavigate } from 'react-router-dom';
 import Avatar from './images/safaricom.png';
 import { usePoints } from './PointsContext';

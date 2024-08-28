@@ -1,7 +1,7 @@
 import React from 'react';
 import './TaskPage.css'; // Add custom styles here
 import Avatar from './images/avatar.jpg';
-import { usePoints } from './PointsContext';
+
 import BottomNavBar from './BottomNavBar';
 import { useLocation } from 'react-router-dom';
 interface TaskPageProps {
