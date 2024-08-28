@@ -8,24 +8,9 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import { useNavigate } from 'react-router-dom';
-useEffect(() => {
-  // Assuming you have access to the username and first name from the bot
-  const username = "user's username from bot";
-  const firstName = "user's first name from bot";
 
-  // Store in localStorage
-  localStorage.setItem('username', username);
-  localStorage.setItem('firstName', firstName);
-}, []);
 const App: React.FC = () => {
-  const [username, setUsername] = useState(''); // State to store the username
- 
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username'); // Retrieve the username from local storage
-    if (storedUsername) {
-      setUsername(storedUsername); // Set the username in state
-    }
-  }, []);
+
 
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
@@ -147,8 +132,8 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-              <p className="text-sm">{username || 'User'}</p> {/* Display the username or 'User' if not available */}
-            </div>
+              <p className="text-sm">User</p> 
+                          </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
             <div className="flex items-center w-1/3">
