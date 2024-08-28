@@ -39,9 +39,9 @@ const TaskPage: React.FC = () => {
       </div>
       <div className="tasks-section mt-6 px-4">
         <div className="task-card">
-        <a href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" target="_blank" rel="noopener noreferrer">
+        <p><a href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" target="_blank" rel="noopener noreferrer">
             Download M-pesa
-          </a>
+          </a></p>
           <span>P 100.000</span>
         </div>
         <div className="task-card">
