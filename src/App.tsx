@@ -5,13 +5,14 @@ import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin} from './
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Avatar from './images/safaricom.png';
 import { usePoints } from './PointsContext';
 import BottomNavBar from './BottomNavBar';
 const App: React.FC = () => {
   const { points, setPoints } = usePoints();
   const [username, setUsername] = useState("User");
+  const { token } = useParams<{ token: string }>();
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
     "Epic", "Legendary", "Master", "GrandMaster", "Lord"
@@ -66,7 +67,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const token = localStorage.getItem("jwtToken"); // Assuming the token is stored in local storage
+        
         const response = await axios.get(`/api/user/${token}`);
         setUsername(response.data.name);
       } catch (error) {
@@ -75,7 +76,7 @@ const App: React.FC = () => {
     };
 
     fetchUsername();
-  }, []);
+  }, [token]);
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
