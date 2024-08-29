@@ -4,7 +4,8 @@ import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin} from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Avatar from './images/safaricom.png';
 import { usePoints } from './PointsContext';
@@ -122,7 +123,19 @@ const App: React.FC = () => {
   const handleTaskClick = () => {
     navigate('/task', { state: { points } }); // Pass the current points to the task page
   };
+  const { token } = useParams();
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
 
+  useEffect(() => {
+    axios.get(`/api/user/${token}`)
+      .then(response => {
+        setName(response.data.name);
+      })
+      .catch(error => {
+        setError('Invalid or expired token');
+      });
+  }, [token]);
 
   return (
     <div className="bg-black flex justify-center">
@@ -133,7 +146,7 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-              <p className="text-sm">User</p> 
+              <p className="text-sm"> {name}</p> 
                           </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
