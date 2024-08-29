@@ -15,7 +15,7 @@ const Main: React.FC = () => {
     <Router>
       <PointsProvider>
         <Routes>
-          <Route path="/user/:token" element={<App />} />
+          <Route path="/" element={<App />} />
           <Route path="/task" element={<TaskPage updatePoints={updatePoints} />} />
         </Routes>
       </PointsProvider>
