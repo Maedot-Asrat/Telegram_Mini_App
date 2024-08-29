@@ -5,14 +5,13 @@ import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin} from './
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Avatar from './images/safaricom.png';
 import { usePoints } from './PointsContext';
 import BottomNavBar from './BottomNavBar';
 const App: React.FC = () => {
   const { points, setPoints } = usePoints();
-
+  const [username, setUsername] = useState("User");
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
     "Epic", "Legendary", "Master", "GrandMaster", "Lord"
@@ -64,7 +63,19 @@ const App: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken"); // Assuming the token is stored in local storage
+        const response = await axios.get(`/api/user/${token}`);
+        setUsername(response.data.name);
+      } catch (error) {
+        console.error("Failed to fetch username:", error);
+      }
+    };
 
+    fetchUsername();
+  }, []);
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -123,19 +134,7 @@ const App: React.FC = () => {
   const handleTaskClick = () => {
     navigate('/task', { state: { points } }); // Pass the current points to the task page
   };
-  const { token } = useParams();
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
 
-  useEffect(() => {
-    axios.get(`/api/user/${token}`)
-      .then(response => {
-        setName(response.data.name);
-      })
-      .catch(error => {
-        setError('Invalid or expired token');
-      });
-  }, [token]);
 
   return (
     <div className="bg-black flex justify-center">
@@ -146,10 +145,7 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-            {error ? (
-        <p>{error}</p>
-      ) : (
-              <p className="text-sm"> {name}</p> )}
+              <p className="text-sm">{username}</p> 
                           </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
