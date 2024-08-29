@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import TaskPage from './TaskPage';
@@ -15,6 +15,7 @@ const Main: React.FC = () => {
     <Router>
       <PointsProvider>
         <Routes>
+          <Route path="/" element={<Navigate to="/api/user/:token" />} />
           <Route path="/api/user/:token" element={<App />} />
           <Route path="/task" element={<TaskPage updatePoints={updatePoints} />} />
         </Routes>
