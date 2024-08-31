@@ -15,8 +15,8 @@ const Main: React.FC = () => {
     <Router>
       <PointsProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="api/user/:token" />} />
-          <Route path="api/user/:token" element={<App />} />
+          <Route path="/" element={<Navigate to="/api/user/:token" />} />
+          <Route path="/api/user/:token" element={<App />} />
           <Route path="/task" element={<TaskPage updatePoints={updatePoints} />} />
         </Routes>
       </PointsProvider>
