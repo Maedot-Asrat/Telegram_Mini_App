@@ -67,17 +67,18 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        
         const response = await axios.get(`/api/user/${token}`);
         setUsername(response.data.name);
+        setPoints(response.data.points); // Set the points fetched from the server
       } catch (error) {
-        console.error("Failed to fetch username:", error);
+        console.error("Failed to fetch user data:", error);
       }
     };
+    
 
     fetchUsername();
   }, [token]);
-  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleCardClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
@@ -86,10 +87,18 @@ const App: React.FC = () => {
     setTimeout(() => {
       card.style.transform = '';
     }, 100);
-
-    setPoints(points + pointsToAdd);
+  
+    const newPoints = points + pointsToAdd;
+    setPoints(newPoints);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
+  
+    try {
+      await axios.post('/api/update-points', { token, pointsToAdd });
+    } catch (error) {
+      console.error("Failed to update points:", error);
+    }
   };
+  
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
