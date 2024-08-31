@@ -65,18 +65,16 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get(`/api/user/${token}`);
-        setUsername(response.data.name);
-        setPoints(response.data.points); // Set the points fetched from the server
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
+    fetch('http://localhost:5000/api/user/' + token)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    setUsername(data.name);
+    setPoints(data.points);
+  })
+  .catch(error => console.error('Error:', error));
     
 
-    fetchUsername();
   }, [token]);
   const handleCardClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
