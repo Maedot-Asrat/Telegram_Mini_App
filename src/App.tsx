@@ -65,16 +65,14 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    fetch('http://localhost:5000/api/user/' + token)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    setUsername(data.name);
-    setPoints(data.points);
-  })
-  .catch(error => console.error('Error:', error));
-    
-
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${token}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setUsername(data.name);
+        setPoints(data.points);
+      })
+      .catch(error => console.error('Error:', error));
   }, [token]);
   const handleCardClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
