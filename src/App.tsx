@@ -65,7 +65,7 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${token}`)
+    fetch(`${process.env.VITE_BACKEND_URL}/api/user/${token}`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
