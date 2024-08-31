@@ -65,19 +65,26 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get(`/api/user/${token}`);
-        setUsername(response.data.name);
-        setPoints(response.data.points); // Set the points fetched from the server
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
+    useEffect(() => {
+      const fetchUsername = async () => {
+        console.log('Token in React:', token);  // Check if token is correct
+        try {
+          const response = await axios.get(`/api/user/${token}`);
+          console.log('Response data:', response.data);  // Check what is returned
+          setUsername(response.data.name);
+          setPoints(response.data.points); // Set the points fetched from the server
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
+      };
+    
+      if (token) {
+        fetchUsername();
       }
-    };
+    }, [token]);
     
 
-    fetchUsername();
-  }, [token]);
+  });
   const handleCardClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
