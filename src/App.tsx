@@ -11,7 +11,7 @@ import { usePoints } from './PointsContext';
 import BottomNavBar from './BottomNavBar';
 const App: React.FC = () => {
   const { points, setPoints } = usePoints();
-  const [username, setUsername] = useState("User");
+  const [username, setUsername] = useState();
   const { token } = useParams<{ token: string }>();
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
