@@ -89,7 +89,7 @@ const App: React.FC = () => {
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
   
     try {
-      await axios.post('/api/update-points', { token, pointsToAdd });
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/update-points`, { token, pointsToAdd });
     } catch (error) {
       console.error("Failed to update points:", error);
     }
