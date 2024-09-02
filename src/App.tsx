@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin} from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; // Changed from useParams to useLocation
 import Avatar from './images/safaricom.png';
 import { usePoints } from './PointsContext';
 import BottomNavBar from './BottomNavBar';
+
 const App: React.FC = () => {
   const { points, setPoints } = usePoints();
-  const [username, setUsername] = useState();
-  const { token } = useParams<{ token: string }>();
+  const [username, setUsername] = useState<string | undefined>();
+  const location = useLocation(); // Access the current location
+  const navigate = useNavigate();
+
+  // Extract token from query parameters
+  const query = new URLSearchParams(location.search);
+  const token = query.get('token');
+
+  // Level names and minimum points remain unchanged
   const levelNames = [
     "Bronze", "Silver", "Gold", "Platinum", "Diamond", 
     "Epic", "Legendary", "Master", "GrandMaster", "Lord"
@@ -24,7 +32,6 @@ const App: React.FC = () => {
   ];
 
   const [levelIndex, setLevelIndex] = useState(0);
-  // const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 11;
   const profitPerHour = 1;
@@ -64,16 +71,28 @@ const App: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
+    if (!token) {
+      console.error('No token found in URL');
+      return;
+    }
+
+    console.log('Fetching user data with token:', token);
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${token}`)
-      .then(response => response.json())
+      .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+      })
       .then(data => {
-        console.log(data);
+        console.log("Fetched Data:", data);
         setUsername(data.name);
         setPoints(data.points);
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error fetching data:', error));
   }, [token]);
+
   const handleCardClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -83,18 +102,17 @@ const App: React.FC = () => {
     setTimeout(() => {
       card.style.transform = '';
     }, 100);
-  
+
     const newPoints = points + pointsToAdd;
     setPoints(newPoints);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
-  
+
     try {
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/update-points`, { token, pointsToAdd });
     } catch (error) {
       console.error("Failed to update points:", error);
     }
   };
-  
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
@@ -135,12 +153,9 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
-  const navigate = useNavigate();
-
   const handleTaskClick = () => {
     navigate('/task', { state: { points } }); // Pass the current points to the task page
   };
-
 
   return (
     <div className="bg-black flex justify-center">
@@ -152,7 +167,7 @@ const App: React.FC = () => {
             </div>
             <div>
               <p className="text-sm">{username}</p> 
-                          </div>
+            </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
             <div className="flex items-center w-1/3">
@@ -232,19 +247,19 @@ const App: React.FC = () => {
       <BottomNavBar handleTaskClick={handleTaskClick} />
 
       {clicks.map((click) => (
-          <div
-            key={click.id}
-            className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
-            style={{
-              top: `${click.y - 42}px`,
-              left: `${click.x - 28}px`,
-              animation: `float 1s ease-out`
-            }}
-            onAnimationEnd={() => handleAnimationEnd(click.id)}
-          >
-            {pointsToAdd}
-          </div>
-        ))}
+        <div
+          key={click.id}
+          className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
+          style={{
+            top: `${click.y - 42}px`,
+            left: `${click.x - 28}px`,
+            animation: `float 1s ease-out`
+          }}
+          onAnimationEnd={() => handleAnimationEnd(click.id)}
+        >
+          {pointsToAdd}
+        </div>
+      ))}
     </div>
   );
 };
