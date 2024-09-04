@@ -45,7 +45,8 @@ const TaskPage: React.FC = () => {
       </div>
 
       {/* Task Cards */}
-      <div className="tasks-section mt-6 px-4">
+      <div className="flex-grow mt-4 bg-[#34b523] rounded-t-[48px] relative top-glow z-0">
+      <div className="tasks-section p-4 absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]" >
         <div className="task-card bg-gray-800 p-4 rounded-lg mb-2 flex justify-between items-center">
           <a href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" target="_blank" rel="noopener noreferrer" className="task-link">
             Download M-pesa
@@ -63,6 +64,7 @@ const TaskPage: React.FC = () => {
           <p>Follow All Safari Social</p>
           <span className="text-gold">P 50.000</span>
         </div>
+      </div>
       </div>
 
       {/* Footer */}

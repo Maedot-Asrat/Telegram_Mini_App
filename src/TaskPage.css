@@ -43,7 +43,9 @@
   border-radius: 12px;
   margin-bottom: 10px;
 }
-
+.top-glow {
+  box-shadow: 0 -26px 20px rgba(50, 243, 47, 0.3);
+}
 .task-card a {
   color: white;
   text-decoration: none;
