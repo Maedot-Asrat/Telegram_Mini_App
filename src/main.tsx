@@ -7,9 +7,7 @@ import TaskPage from './TaskPage';
 import { PointsProvider } from './PointsContext';
 
 const Main: React.FC = () => {
-  const updatePoints = () => {
-    // You can still handle point updates here if needed
-  };
+ 
 
   return (
     <Router>
