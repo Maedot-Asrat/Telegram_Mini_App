@@ -3,14 +3,15 @@ import './TaskPage.css'; // Add custom styles here
 import Avatar from './images/avatar.jpg';
 
 import BottomNavBar from './BottomNavBar';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 interface TaskPageProps {
   updatePoints: (points: number) => void;
+  currentPoints: number;
 }
 
-const TaskPage: React.FC<TaskPageProps> = ({ updatePoints }) => {
-  const location = useLocation();
-  const currentPoints = location.state?.points || 0;
+const TaskPage: React.FC<TaskPageProps> = ({ updatePoints, currentPoints }) => {
+  // const location = useLocation();
+  // const currentPoints = location.state?.points || 0;
 
   const handleTaskCompletion = (points: number) => {
     updatePoints(currentPoints + points);
