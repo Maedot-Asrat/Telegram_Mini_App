@@ -40,7 +40,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ updatePoints }) => {
             <p className="text-sm">Tasks</p>
           </div>
           <div className="stat">
-            <p className="text-lg">872.8K</p>
+          <h2>Current Points: {currentPoints}</h2> 
             <p className="text-sm">Points</p>
           </div>
           <div className="stat">
@@ -49,19 +49,19 @@ const TaskPage: React.FC<TaskPageProps> = ({ updatePoints }) => {
           </div>
         </div>
       </div>
+    
       <div className="tasks-section mt-6 px-4">
         <div className="task-card">
-        <p>
-            <a 
-              href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle" 
-              target="_blank" 
+          <p>
+            <a
+              href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle"
+              target="_blank"
               rel="noopener noreferrer"
-              onClick={() => handleTaskCompletion(10000)} // Add the onClick handler
+              onClick={() => handleTaskCompletion(10000)} // Trigger point update here
             >
               Download M-pesa
             </a>
           </p>
-          <span>P 100.000</span>
           <span>P 100.000</span>
         </div>
         <div className="task-card">

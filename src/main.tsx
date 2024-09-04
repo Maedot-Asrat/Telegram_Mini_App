@@ -7,7 +7,12 @@ import TaskPage from './TaskPage';
 import { PointsProvider } from './PointsContext';
 
 const Main: React.FC = () => {
- 
+  const [points, setPoints] = React.useState(0); // Points state
+
+  const updatePoints = (newPoints: number) => {
+    setPoints(newPoints); // Update the points state
+    console.log("Points updated:", newPoints); // Add logging to confirm points are updating
+  };
 
   return (
     <Router>
