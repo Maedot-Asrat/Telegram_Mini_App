@@ -6,6 +6,7 @@ import dailyCipher from "./daily-cipher.png";
 import dailyCombo from "./daily-combo.png";
 import mainCharacter from "./main-character.png";
 import hamsterCoin from "./hamster-coin.png";
+import BackButton from "./back-svgrepo-com.svg";
 
 export {
     hamsterExchange,
@@ -15,5 +16,6 @@ export {
     dailyCipher,
     dailyCombo,
     mainCharacter,
-    hamsterCoin
+    hamsterCoin,
+    BackButton
 };
