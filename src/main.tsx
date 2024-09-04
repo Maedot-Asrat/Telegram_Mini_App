@@ -7,12 +7,7 @@ import TaskPageProps from './TaskPage';
 import { PointsProvider } from './PointsContext';
 
 const Main: React.FC = () => {
-  const [points, setPoints] = React.useState(0); // Points state
 
-  const updatePoints = (newPoints: number) => {
-    setPoints(newPoints); // Update the points state
-    console.log("Points updated:", newPoints); // Add logging to confirm points are updating
-  };
 
   return (
     <Router>
@@ -20,7 +15,7 @@ const Main: React.FC = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/api/user/:token" />} />
           <Route path="/api/user/:token" element={<App />} />
-          <Route path="/task" element={<TaskPageProps updatePoints={updatePoints} currentPoints={points}/>} />
+          <Route path="/task" element={<TaskPageProps />} />
         </Routes>
       </PointsProvider>
     </Router>

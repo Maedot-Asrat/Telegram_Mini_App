@@ -4,18 +4,13 @@ import Avatar from './images/avatar.jpg';
 
 import BottomNavBar from './BottomNavBar';
 // import { useLocation } from 'react-router-dom';
-interface TaskPageProps {
-  updatePoints: (points: number) => void;
-  currentPoints: number;
-}
 
-const TaskPage: React.FC<TaskPageProps> = ({ updatePoints, currentPoints }) => {
+
+const TaskPage: React.FC=() => {
   // const location = useLocation();
   // const currentPoints = location.state?.points || 0;
 
-  const handleTaskCompletion = (points: number) => {
-    updatePoints(currentPoints + points);
-  };
+ 
   return (
     <div className="task-page bg-black text-white flex justify-center">
       <div className="header flex justify-between p-4">
@@ -41,7 +36,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ updatePoints, currentPoints }) => {
             <p className="text-sm">Tasks</p>
           </div>
           <div className="stat">
-          <h2>Current Points: {currentPoints}</h2> 
+          <h2>Current Points: </h2> 
             <p className="text-sm">Points</p>
           </div>
           <div className="stat">
@@ -58,7 +53,7 @@ const TaskPage: React.FC<TaskPageProps> = ({ updatePoints, currentPoints }) => {
               href="https://play.google.com/store/apps/details?id=et.safaricom.mpesa.lifestyle"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => handleTaskCompletion(10000)} // Trigger point update here
+               // Trigger point update here
             >
               Download M-pesa
             </a>
