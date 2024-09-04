@@ -3,7 +3,11 @@
   display: flex;
   flex-direction: column;
 }
-
+.profile-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .header {
   background-color: #1a1a1a;
 }
